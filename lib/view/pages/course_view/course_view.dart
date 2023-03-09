@@ -29,57 +29,59 @@ class CourseView extends StatelessWidget {
 
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
-        return Scaffold(
-          body: CustomScrollView(
-            slivers: [
-              MySliverAppBar(image: image),
-
-              SliverToBoxAdapter(
-                child: FutureBuilder<QuerySnapshot>(
-                    future: courseRef.orderBy(kCreatedAt).get(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.hasError) {
+        return SafeArea(
+          child: Scaffold(
+            body: CustomScrollView(
+              slivers: [
+                MySliverAppBar(image: image),
+        
+                SliverToBoxAdapter(
+                  child: FutureBuilder<QuerySnapshot>(
+                      future: courseRef.orderBy(kCreatedAt).get(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          return const Center(
+                              child: Text("Something went wrong"));
+                        }
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              itemCount: snapshot.data!.docs.length,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => VideoPlayer(
+                                                courseName: courseFinished,
+                                                Url: snapshot.data!.docs[index]
+                                                    ['id'])));
+                                  },
+                                  child: ItemWidget(
+                                      title: snapshot.data!.docs[index]['title'],
+                                      index: index),
+                                );
+                              });
+                        }
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          Map<String, dynamic> data =
+                              snapshot.data! as Map<String, dynamic>;
+                          return Text("task is : ${data['task']}");
+                        }
                         return const Center(
-                            child: Text("Something went wrong"));
-                      }
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => VideoPlayer(
-                                              courseName: courseFinished,
-                                              Url: snapshot.data!.docs[index]
-                                                  ['id'])));
-                                },
-                                child: ItemWidget(
-                                    title: snapshot.data!.docs[index]['title'],
-                                    index: index),
-                              );
-                            });
-                      }
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        Map<String, dynamic> data =
-                            snapshot.data! as Map<String, dynamic>;
-                        return Text("task is : ${data['task']}");
-                      }
-                      return const Center(
-                          child: Padding(
-                        padding: EdgeInsets.all(20),
-                        child: CircularProgressIndicator(),
-                      ));
-                    }),
-              )
-
-              //
-            ],
+                            child: Padding(
+                          padding: EdgeInsets.all(20),
+                          child: CircularProgressIndicator(),
+                        ));
+                      }),
+                )
+        
+                //
+              ],
+            ),
           ),
         );
       },
