@@ -1,0 +1,5 @@
+{
+    "cmake.sourceDirectory": "${workspaceFolder}/linux",
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "chatgpt.gpt3.apiKey": "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"
+}

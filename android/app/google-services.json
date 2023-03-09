@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "470172640064",
+    "project_id": "tm8course",
+    "storage_bucket": "tm8course.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470172640064:android:f5b31c77859edf6168d0a5",
+        "android_client_info": {
+          "package_name": "com.example.tm_course"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "470172640064-lelrjb120j70kmu37fqden9f26fage2r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiQW3XS42PQ7jCXtH6_xR1w9a3Z2RkUyc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "470172640064-lelrjb120j70kmu37fqden9f26fage2r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
